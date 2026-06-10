@@ -1,107 +1,218 @@
-# Review Radar 🛰️
+# Review Radar
 
-Review Radar is a production-quality Chrome Extension that helps users make instant, confident shopping decisions on **Amazon** and **Flipkart**. Powered by the Gemini API, it extracts, digests, and evaluates review sentiment in seconds, answering the ultimate consumer question: **"Would I buy this product?"**
+**AI-Powered Chrome Extension for Intelligent Purchase Decisions**
 
-Instead of reading hundreds of reviews, users get a high-impact, single-card recommendation, a Trust Score, category-specific drivers, audience targeting, and a percentage breakdown of common complaints.
+Review Radar is a Chrome Extension that helps consumers evaluate products faster by transforming large volumes of customer reviews into structured, actionable insights.
 
----
+The extension analyzes product reviews from leading e-commerce platforms and generates recommendation-driven summaries, trust metrics, sentiment analysis, complaint patterns, and buyer suitability insights using Large Language Models (LLMs).
 
-## 🌟 Key Features
+Instead of manually reading hundreds of reviews, users receive a concise decision framework that answers a simple question:
 
-* **Recommendation Verdict**: Instant buying suggestion (`✅ Recommended`, `⚠️ Consider Carefully`, `❌ Not Recommended`) displayed with clear, bulleted explanations.
-* **Trust Score (0-100)**: A consolidated trust rating that drops significantly on red flags (e.g., product failure after 1 month, customer support complaints).
-* **Confidence Rating**: Visual indicator (`High`, `Medium`, `Low`) based directly on the sample size of reviews parsed.
-* **Category & Price Awareness**: Automatically classifies the product category and parses the listing price to evaluate overall value for money.
-* **Key Decision Drivers**: Displays what users praise most versus what they dislike.
-* **Common Complaints breakdown**: An analytical percentage bar chart showing the frequency of recurring complaints (e.g. *Heating (31%)*).
-* **Audience Profiles ("Who is this for?")**: Quick checklists highlighting the ideal target demographic (`Ideal For`) and who should avoid the product (`Not Ideal For`).
-* **Warning States**: Triggers warnings if limited review data is available (< 5 reviews found) to prevent AI hallucinations.
-* **Robust Client-Side Caching**: Automatically hashes and caches analyses based on `URL + ReviewCount + ReviewSnippet`. Re-opening the extension loads instantly, with an option to manually "Re-analyze".
+**Is this product worth buying?**
 
 ---
 
-## 🚀 Tech Stack
+## Overview
 
-* **Frontend**: React, TypeScript, Tailwind CSS
-* **Build Tool**: Vite (Rollup config bundle for service workers & content scripts)
-* **AI Engine**: Google Gemini API (`gemini-1.5-flash`)
-* **Platform**: Manifest V3 Chrome Extension
+Online shopping platforms provide access to extensive customer feedback, but extracting meaningful insights from hundreds or thousands of reviews remains time-consuming and inefficient.
+
+Review Radar addresses this problem by automatically collecting review data, identifying recurring themes, and generating decision-oriented recommendations that help users evaluate products with greater confidence and significantly less effort.
+
+The product is designed around three core objectives:
+
+* Reduce information overload.
+* Surface high-signal customer feedback.
+* Accelerate purchase decisions.
 
 ---
 
-## 📂 Project Structure
+## Key Capabilities
 
+### Purchase Recommendation Engine
+
+Generates an AI-driven recommendation based on review patterns and customer sentiment.
+
+* Recommended
+* Consider Carefully
+* Not Recommended
+
+Each recommendation is accompanied by a detailed rationale explaining the decision.
+
+---
+
+### Trust Score Framework
+
+Review Radar assigns a trust score to every analyzed product.
+
+The score is derived from:
+
+* Overall review sentiment
+* Frequency of recurring complaints
+* Product strengths and weaknesses
+* Customer satisfaction indicators
+
+This allows users to evaluate product reliability at a glance.
+
+---
+
+### Sentiment Intelligence
+
+Customer feedback is categorized into:
+
+* Positive Sentiment
+* Neutral Sentiment
+* Negative Sentiment
+
+Providing a balanced representation of public perception.
+
+---
+
+### Customer Insight Extraction
+
+Review Radar identifies:
+
+**What customers consistently value**
+
+* Product strengths
+* Frequently praised features
+* Competitive advantages
+
+**What customers consistently criticize**
+
+* Product weaknesses
+* Recurring issues
+* Areas of dissatisfaction
+
+---
+
+### Complaint Pattern Analysis
+
+The extension detects recurring complaints and quantifies their prevalence across available reviews.
+
+Examples include:
+
+* Connectivity issues
+* Build quality concerns
+* Delivery problems
+* Performance degradation
+
+This enables users to quickly identify high-risk purchase factors.
+
+---
+
+### Buyer Suitability Analysis
+
+Review Radar determines which customer segments are most likely to benefit from a product.
+
+Examples:
+
+**Ideal For**
+
+* Students
+* Casual Consumers
+* Remote Professionals
+
+**Not Ideal For**
+
+* Power Users
+* Professional Creators
+* Specialized Workloads
+
+---
+
+### Value Assessment
+
+Product pricing is evaluated against customer satisfaction and review sentiment to determine perceived value.
+
+Examples:
+
+* Excellent Value for Money
+* Fairly Priced
+* Potentially Overpriced
+
+---
+
+## System Architecture
+
+Review Radar follows a lightweight, serverless architecture.
+
+```text
+E-commerce Product Page
+            │
+            ▼
+     Content Script
+            │
+            ▼
+ Review Extraction Layer
+            │
+            ▼
+ Background Service Worker
+            │
+            ▼
+      Gemini AI
+            │
+            ▼
+ Structured Insight Engine
+            │
+            ▼
+ Local Cache Storage
+            │
+            ▼
+   Recommendation Dashboard
 ```
-Review Radar/
-├── dist/                       # Compiled Chrome Extension package (Vite output)
-├── docs/
-│   └── case-study.md           # Product Case Study (Metrics, Problem, Roadmap)
-├── public/
-│   ├── manifest.json           # Extension Manifest config
-│   └── icons/                  # 16px, 48px, 128px PNG icons
-├── screenshots/                # Showcase Mockups & Screenshots
-│   ├── onboarding.png
-│   ├── analysis.png
-│   ├── warning-state.png
-│   └── settings.png
-└── src/
-    ├── types.ts                # TypeScript interfaces
-    ├── config.ts               # Configurable constants (GEMINI_MODEL, limits)
-    ├── popup/
-    │   ├── main.tsx            # React entry
-    │   ├── App.tsx             # Dashboard, Onboarding & Settings screens
-    │   └── index.css           # CSS with Tailwind imports
-    ├── content/
-    │   └── content.ts          # Amazon/Flipkart scrapper
-    └── background/
-        └── background.ts       # Service worker (Gemini fetch, validation, retry, cache)
-```
 
 ---
 
-## ⚙️ Installation & Setup
+## Technology Stack
 
-### 1. Build the Extension
-Ensure you have [Node.js](https://nodejs.org/) installed. Run the following commands in your terminal:
+### Frontend
 
-```bash
-# Install dependencies
-npm install
+* React
+* TypeScript
+* Tailwind CSS
+* Vite
 
-# Build the project (compiles TypeScript and bundles via Vite)
-npm run build
-```
+### Browser Extension Platform
 
-This compiles all files into the `/dist` directory.
+* Chrome Extension Manifest V3
+* Content Scripts
+* Service Workers
 
-### 2. Load into Google Chrome
-1. Open Google Chrome and navigate to `chrome://extensions/`
-2. Enable **Developer mode** (toggle in the top-right corner).
-3. Click **Load unpacked** in the top-left corner.
-4. Select the `/dist` folder inside the project root.
-5. The **Review Radar** extension is now loaded and visible in your extension toolbar!
+### Artificial Intelligence
 
-### 3. Setup Gemini API Key
-1. Click the extension icon.
-2. The onboarding screen will guide you to input your Gemini API Key. (You can generate a free key instantly in [Google AI Studio](https://aistudio.google.com/)).
-3. Paste the key and click **Get Started**. Your key is securely saved in local storage.
+* Google Gemini API
+
+### Data Storage
+
+* chrome.storage.local
 
 ---
 
-## 📸 Screenshots Showcase
+## Product Strategy
 
-*To prepare your resume for recruiters, take screenshot captures of the extension screens and save them to `/screenshots/` as referenced below:*
+Review Radar was developed around a simple product hypothesis:
 
-1. **Onboarding Screen (`/screenshots/onboarding.png`)**
-   *Shows the clean, slate-dark setup screen guiding the user to enter their API key.*
-2. **Main Dashboard (`/screenshots/analysis.png`)**
-   *Shows a successfully analyzed product page displaying the ✅ Recommended hero card, Trust Score, Sentiment Bar, decision drivers, and complaints.*
-3. **Limited Review Warning (`/screenshots/warning-state.png`)**
-   *Shows the yellow alert banner warning the user about limited reviews (< 5).*
-4. **Settings Configuration Overlay (`/screenshots/settings.png`)**
-   *Shows the options screen allowing the user to update their API key.*
+> Consumers care less about reading reviews and more about understanding what those reviews imply.
+
+Traditional review systems require users to manually process large volumes of unstructured feedback.
+
+Review Radar converts that feedback into structured intelligence that supports faster and more informed purchasing decisions.
 
 ---
 
-## 📄 Product Case Study
-To read more about the product decisions, Success metrics, and future roadmap, read our full [Product Case Study](file:///C:/Users/Ananya%20Prakash/Desktop/Review%20Radar/docs/case-study.md).
+## Future Development
+
+Planned enhancements include:
+
+* Competitor comparison
+* Historical review trend analysis
+* Price tracking
+* Review authenticity scoring
+* Personalized recommendation models
+* Expanded marketplace support
+
+---
+
+## Disclaimer
+
+Review Radar provides AI-generated insights based on publicly available customer reviews. Recommendations are intended to assist decision-making and should not be considered professional purchasing advice.
